@@ -43,11 +43,11 @@ namespace API2.Repositories
               .ToList();
             return StaffID;
         }
-        public void UpdateStaff([FromBody] Staff staff)
+        public void UpdateStaff([FromBody] Staff staff, int id)
         {
             try
             {
-                var existingStaff = _Context.Staff.FirstOrDefault(s => s.Id == staff.Id);
+                var existingStaff = _Context.Staff.FirstOrDefault(s => s.Id == id);
                 if (existingStaff == null)
                 {
                     throw new Exception();

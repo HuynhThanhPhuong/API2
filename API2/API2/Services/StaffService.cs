@@ -23,9 +23,9 @@ namespace API2.Services
         {
             return _staffRepository.GetStaffListByID(id);
         }
-        public void UpdateStaff([FromBody] Staff staff)
+        public void UpdateStaff([FromBody] Staff staff, int id)
         {
-             _staffRepository.UpdateStaff(staff);
+             _staffRepository.UpdateStaff(staff, id);
         }
         public void DeleteStaff(int id)
         {

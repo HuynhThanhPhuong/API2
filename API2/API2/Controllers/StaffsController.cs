@@ -33,10 +33,10 @@ namespace API2.Controllers
             var Staff = _staffService.GetStaffListByID(id);
             return Ok(Staff);
         }
-        [HttpPut]
-        public IActionResult UpdateStaff([FromBody] Staff staff)
+        [HttpPut("{id}")]
+        public IActionResult UpdateStaff([FromBody] Staff staff, int id)
         {
-            _staffService.UpdateStaff(staff);
+            _staffService.UpdateStaff(staff, id);
             return Ok();
         }
         [HttpDelete("{id}")]
