@@ -36,12 +36,22 @@ namespace API2.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateStaff([FromBody] Staff staff, int id)
         {
+            var checkStaff = _staffService.GetStaffListByID(id);
+            if (checkStaff == null)
+            {
+                return NotFound("Staff not found.");
+            }
             _staffService.UpdateStaff(staff, id);
             return Ok();
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteStaff(int id)
         {
+            var checkStaff = _staffService.GetStaffListByID(id);
+            if (checkStaff == null)
+            {
+                return NotFound("Staff not found.");
+            }
             _staffService.DeleteStaff(id);
             return Ok();
         }

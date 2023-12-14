@@ -36,11 +36,10 @@ namespace API2.Repositories
                 throw new Exception("Có vấn đề xảy ra khi lưu!");
             }
         }
-        public List<Staff> GetStaffListByID(int id)
+        public Staff GetStaffListByID(int id)
         {
             var StaffID = _Context.Staff
-              .Where(p => p.Id == id)
-              .ToList();
+              .FirstOrDefault(p => p.Id == id);
             return StaffID;
         }
         public void UpdateStaff([FromBody] Staff staff, int id)
@@ -48,12 +47,11 @@ namespace API2.Repositories
             try
             {
                 var existingStaff = _Context.Staff.FirstOrDefault(s => s.Id == id);
-                if (existingStaff == null)
+                if (existingStaff != null)
                 {
-                    throw new Exception();
+                    existingStaff.FullName = staff.FullName;
+                    existingStaff.ShortName = staff.ShortName;
                 }
-                existingStaff.FullName = staff.FullName;
-                existingStaff.ShortName = staff.ShortName;
                 _Context.SaveChanges();
             }
             catch (Exception ex)
@@ -66,11 +64,10 @@ namespace API2.Repositories
             try
             {
                 var existingStaff = _Context.Staff.FirstOrDefault(s => s.Id == id);
-                if (existingStaff == null)
+                if (existingStaff != null)
                 {
-                    throw new Exception();
+                    _Context.Remove(existingStaff);
                 }
-                _Context.Remove(existingStaff);
                 _Context.SaveChanges();
             }
             catch (Exception ex)

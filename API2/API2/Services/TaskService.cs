@@ -19,7 +19,7 @@ namespace API2.Services
         {
             return _taskRepository.GetListTask(Term);
         }
-        public List<Models.Task> GetListTaskById(int id)
+        public Models.Task GetListTaskById(int id)
         {
             return _taskRepository.GetListTaskById(id);
         }

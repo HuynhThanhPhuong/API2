@@ -7,7 +7,7 @@ namespace API2.Services
     {
         List<Staff> GetStaffList(string? term);
         void AddStaff([FromBody] Staff satff);
-        List<Staff> GetStaffListByID(int id);
+        Staff GetStaffListByID(int id);
         void UpdateStaff([FromBody] Staff satff, int id);
         void DeleteStaff(int id);
     }

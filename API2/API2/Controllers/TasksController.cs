@@ -1,6 +1,8 @@
-﻿using API2.Services;
+﻿using API2.Models;
+using API2.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.AccessControl;
 
 namespace API2.Controllers
@@ -18,7 +20,7 @@ namespace API2.Controllers
         public IActionResult AddTask([FromBody] API2.Models.Task task)
         {
             _taskService.AddTask(task);
-            return Ok(task);
+            return Ok();
         }
         [HttpGet]
         public IActionResult GetAllTasks(string? Term) 
@@ -35,12 +37,22 @@ namespace API2.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateTask([FromBody] API2.Models.Task task, int id)
         {
+            var checkTask = _taskService.GetListTaskById(id);
+            if(checkTask == null)
+            {
+                return NotFound("Task not found.");
+            }
             _taskService.UpdateTask(task, id);
-            return Ok(task);
+            return Ok();
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteTask(int id)
         {
+            var checkTask = _taskService.GetListTaskById(id);
+            if (checkTask == null)
+            {
+                return NotFound("Task not found.");
+            }
             _taskService.DeleteTask(id);
             return Ok();
         }

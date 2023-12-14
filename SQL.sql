@@ -60,8 +60,10 @@ GO
 --ALTER TABLE [dbo].StaffInTask
 --ADD CONSTRAINT FK_StaffInTask_IDStask FOREIGN KEY (IDStask) REFERENCES [dbo].Task(ID);
 
-
+ 
 --ALTER TABLE [dbo].StaffInTask DROP CONSTRAINT FK_StaffInTask_IDStask;
 --ALTER TABLE [dbo].StaffInTask DROP CONSTRAINT FK_StaffInTask_IDStaff;
 
 select * from Staff
+
+

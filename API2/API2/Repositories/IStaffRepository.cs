@@ -7,7 +7,7 @@ namespace API2.Repositories
     {
         List<Staff> GetStaffList(string? term);
         void AddStaff([FromBody] Staff staff);
-        List<Staff> GetStaffListByID(int id);
+        Staff GetStaffListByID(int id);
         void UpdateStaff([FromBody] Staff staff, int id);
         void DeleteStaff(int id);
     }

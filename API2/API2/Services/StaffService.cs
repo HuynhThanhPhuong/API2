@@ -19,7 +19,7 @@ namespace API2.Services
         {
             _staffRepository.AddStaff(staff);
         }
-        public List<Staff> GetStaffListByID(int id)
+        public Staff GetStaffListByID(int id)
         {
             return _staffRepository.GetStaffListByID(id);
         }

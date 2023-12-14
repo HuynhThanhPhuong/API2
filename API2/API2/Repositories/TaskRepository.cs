@@ -34,11 +34,10 @@ namespace API2.Repositories
 
             return filteredTask;
         }
-        public List<Models.Task> GetListTaskById(int id)
+        public Models.Task GetListTaskById(int id)
         {
             var lstTask = _Context.Tasks
-              .Where(p => p.Id == id)
-              .ToList();
+              .FirstOrDefault(p => p.Id == id);
 
             return lstTask;
         }
@@ -47,19 +46,18 @@ namespace API2.Repositories
             try
             {
                 var checkTask = _Context.Tasks.FirstOrDefault(p => p.Id == id);
-                if(checkTask == null) 
+                if (checkTask != null)
                 {
-                    throw new Exception();
+                    checkTask.Name = task.Name;
+                    checkTask.Idparent = task.Idparent;
+                    checkTask.Label = task.Label;
+                    checkTask.Type = task.Type;
+                    checkTask.StartDate = task.StartDate;
+                    checkTask.EndDate = task.EndDate;
+                    checkTask.Duration = task.Duration;
+                    checkTask.Progress = task.Progress;
+                    checkTask.IsUnscheduled = task.IsUnscheduled;
                 }
-                checkTask.Name = task.Name;
-                checkTask.Idparent = task.Idparent;
-                checkTask.Label = task.Label;
-                checkTask.Type = task.Type;
-                checkTask.StartDate = task.StartDate;
-                checkTask.EndDate = task.EndDate;
-                checkTask.Duration = task.Duration;
-                checkTask.Progress = task.Progress;
-                checkTask.IsUnscheduled = task.IsUnscheduled;
                 _Context.SaveChanges();
             }
             catch (Exception ex)
@@ -72,11 +70,10 @@ namespace API2.Repositories
             try
             {
                 var checkTask = _Context.Tasks.FirstOrDefault(p => p.Id == id);
-                if (checkTask == null)
+                if (checkTask != null)
                 {
-                    throw new Exception();
+                    _Context.Remove(checkTask);
                 }
-                _Context.Remove(checkTask);
                 _Context.SaveChanges();
             }
             catch (Exception ex)
