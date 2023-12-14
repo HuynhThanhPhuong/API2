@@ -19,8 +19,15 @@ namespace API2.Controllers
         [HttpPost]
         public IActionResult AddTask([FromBody] API2.Models.Task task)
         {
-            _taskService.AddTask(task);
-            return Ok();
+            try
+            {
+                _taskService.AddTask(task);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet]
         public IActionResult GetAllTasks(string? Term) 
@@ -37,24 +44,39 @@ namespace API2.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateTask([FromBody] API2.Models.Task task, int id)
         {
-            var checkTask = _taskService.GetListTaskById(id);
-            if(checkTask == null)
+            try
             {
-                return NotFound("Task not found.");
+                var checkTask = _taskService.GetListTaskById(id);
+                if (checkTask == null)
+                {
+                    return NotFound("Task not found.");
+                }
+                _taskService.UpdateTask(task, id);
+                return Ok();
             }
-            _taskService.UpdateTask(task, id);
-            return Ok();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteTask(int id)
         {
-            var checkTask = _taskService.GetListTaskById(id);
-            if (checkTask == null)
+            try
             {
-                return NotFound("Task not found.");
+                var checkTask = _taskService.GetListTaskById(id);
+                if (checkTask == null)
+                {
+                    return NotFound("Task not found.");
+                }
+                _taskService.DeleteTask(id);
+                return Ok();
             }
-            _taskService.DeleteTask(id);
-            return Ok();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
         }
     }
 }

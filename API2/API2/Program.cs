@@ -16,6 +16,10 @@ builder.Services.AddScoped<IStaffService, StaffService>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 
+
+builder.Services.AddScoped<IStaffInTaskRepository, StaffInTaskRepository>();
+builder.Services.AddScoped<IStaffInTaskService, StaffInTaskService>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

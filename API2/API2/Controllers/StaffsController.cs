@@ -24,8 +24,15 @@ namespace API2.Controllers
         [HttpPost]
         public IActionResult AddStaff([FromBody] Staff staff)
         {
-            _staffService.AddStaff(staff);
-            return Ok();
+            try
+            {
+                _staffService.AddStaff(staff);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("{id}")]
         public IActionResult GetAllStaffByID(int id)
@@ -36,24 +43,40 @@ namespace API2.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateStaff([FromBody] Staff staff, int id)
         {
-            var checkStaff = _staffService.GetStaffListByID(id);
-            if (checkStaff == null)
+            try
             {
-                return NotFound("Staff not found.");
+                var checkStaff = _staffService.GetStaffListByID(id);
+                if (checkStaff == null)
+                {
+                    return NotFound("Staff not found.");
+                }
+                _staffService.UpdateStaff(staff, id);
+                return Ok();
             }
-            _staffService.UpdateStaff(staff, id);
-            return Ok();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteStaff(int id)
         {
-            var checkStaff = _staffService.GetStaffListByID(id);
-            if (checkStaff == null)
+            try
             {
-                return NotFound("Staff not found.");
+                var checkStaff = _staffService.GetStaffListByID(id);
+                if (checkStaff == null)
+                {
+                    return NotFound("Staff not found.");
+                }
+                _staffService.DeleteStaff(id);
+                return Ok();
             }
-            _staffService.DeleteStaff(id);
-            return Ok();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }
